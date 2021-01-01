@@ -68,14 +68,14 @@ router.get(
       });
       res.status(200);
       const courseData = courses.map((data) => ({
-        "Course Title": data.title,
-        "Id Number": data.id,
-        Description: data.description,
-        "Estimated Time to Completion": data.estimatedTime,
-        "Materials Required": data.materialsNeeded,
-        "First Name": data.courseOwner.firstName,
-        "Last Name": data.courseOwner.lastName,
-        "Contact E-mail": data.courseOwner.emailAddress,
+        title: data.title,
+        id: data.id,
+        description: data.description,
+        estimatedTime: data.estimatedTime,
+        materialsNeeded: data.materialsNeeded,
+        firstName: data.courseOwner.firstName,
+        lastName: data.courseOwner.lastName,
+        email: data.courseOwner.emailAddress,
       }));
       res.json(courseData);
     } catch (error) {
