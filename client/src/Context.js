@@ -4,13 +4,20 @@ import Data from "./Data";
 const Context = React.createContext();
 
 export class Provider extends Component {
+  state = {
+    authenticatedUser: null,
+  };
+
   constructor() {
     super();
     this.data = new Data();
   }
 
   render() {
+    const { authenticatedUser } = this.state;
+
     const value = {
+      authenticatedUser,
       data: this.data,
     };
 
@@ -19,6 +26,8 @@ export class Provider extends Component {
     );
   }
 }
+
+export const Consumer = Context.Consumer;
 
 export default function withContext(Component) {
   return function ContextComponent(props) {

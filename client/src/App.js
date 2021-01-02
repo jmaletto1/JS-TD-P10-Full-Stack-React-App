@@ -16,7 +16,7 @@ import UpdateCourse from "./components/UpdateCourse";
 import Header from "./components/Header";
 import withContext from "./Context";
 
-const RegisterWithContext = withContext(UserSignUp);
+const SignUpWithContext = withContext(UserSignUp);
 
 function App() {
   const [data, setData] = useState([]);
@@ -51,7 +51,7 @@ function App() {
             render={(props) => <UpdateCourse {...props} />}
           />
           <Route path="/sign-in" component={UserSignIn} />
-          <Route path="/sign-up" component={RegisterWithContext} />
+          <Route path="/sign-up" component={SignUpWithContext} />
           {/* <Route path="/sign-out" component={} /> */}
         </div>
       </Switch>
