@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./styles/global.css";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import axios from "axios";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
@@ -9,6 +14,9 @@ import UserSignUp from "./components/UserSignUp";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import Header from "./components/Header";
+import withContext from "./Context";
+
+const RegisterWithContext = withContext(UserSignUp);
 
 function App() {
   const [data, setData] = useState([]);
@@ -22,31 +30,31 @@ function App() {
   return (
     <Router>
       <Header />
-      {/* <Switch> */}
-      <div className="App">
-        <Route exact path="/">
-          {" "}
-          <Redirect to="/courses" />
-        </Route>
-        <Route
-          exact
-          path="/courses"
-          component={() => <Courses data={data} />}
-        />
-        <Route exact path="/courses/create" component={CreateCourse} />
-        <Route
-          path="/courses/:id/view"
-          render={(props) => <CourseDetail {...props} />}
-        />
-        <Route
-          path="/courses/:id/update"
-          render={(props) => <UpdateCourse {...props} />}
-        />
-        <Route path="/sign-in" component={UserSignIn} />
-        <Route path="/sign-up" component={UserSignUp} />
-        {/* <Route path="/sign-out" component={} /> */}
-      </div>
-      {/* </Switch> */}
+      <Switch>
+        <div className="App">
+          <Route exact path="/">
+            {" "}
+            <Redirect to="/courses" />
+          </Route>
+          <Route
+            exact
+            path="/courses"
+            component={() => <Courses data={data} />}
+          />
+          <Route exact path="/courses/create" component={CreateCourse} />
+          <Route
+            path="/courses/:id/view"
+            render={(props) => <CourseDetail {...props} />}
+          />
+          <Route
+            path="/courses/:id/update"
+            render={(props) => <UpdateCourse {...props} />}
+          />
+          <Route path="/sign-in" component={UserSignIn} />
+          <Route path="/sign-up" component={RegisterWithContext} />
+          {/* <Route path="/sign-out" component={} /> */}
+        </div>
+      </Switch>
     </Router>
   );
 }
