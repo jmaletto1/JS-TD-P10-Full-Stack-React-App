@@ -1,5 +1,5 @@
 export default class Data {
-  api(path, method, body = null) {
+  api(path, method = "GET", body = null) {
     const url = "http://localhost:5000/api" + path;
 
     const options = {
@@ -17,7 +17,7 @@ export default class Data {
 
   async userLogIn() {}
 
-  async userSignUp(user) {
+  async createUser(user) {
     const response = await this.api("/users", "POST", user, true, {
       firstName,
       lastName,
