@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 class Header extends Component {
   render() {
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+
     return (
       <div className="start" id="root">
         <div>

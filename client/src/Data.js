@@ -1,3 +1,4 @@
+import config from "./config";
 export default class Data {
   api(
     path,
@@ -6,7 +7,7 @@ export default class Data {
     requiresAuth = false,
     credentials = null
   ) {
-    const url = "http://localhost:5000/api" + path;
+    const url = config.apiBaseUrl + path;
 
     const options = {
       method,
@@ -44,12 +45,7 @@ export default class Data {
   }
 
   async createUser(user) {
-    const response = await this.api("/users", "POST", user, true, {
-      firstName,
-      lastName,
-      emailAddress,
-      password,
-    });
+    const response = await this.api("/users", "POST", user);
     if (response.status === 201) {
       return [];
     } else if (response.status === 400) {

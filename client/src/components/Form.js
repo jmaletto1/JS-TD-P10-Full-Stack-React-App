@@ -1,7 +1,7 @@
 import React from "react";
 
 export default (props) => {
-  const { cancel, submit } = props;
+  const { cancel, errors, submit, submitButtonText, elements } = props;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -33,6 +33,7 @@ export default (props) => {
 
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
+  console.log(errors);
 
   if (errors.length) {
     errorsDisplay = (

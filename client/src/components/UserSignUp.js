@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Form from "./Form";
 
-class UserSignUp extends Component {
+export default class UserSignUp extends Component {
   state = {
     firstName: "",
     lastName: "",
@@ -9,8 +10,10 @@ class UserSignUp extends Component {
     password: "",
     errors: [],
   };
+
   render() {
-    const { firstName, lastName, emailAddress, password } = this.state;
+    const { firstName, lastName, emailAddress, password, errors } = this.state;
+
     return (
       <div id="root">
         <div className="bounds">
@@ -19,7 +22,7 @@ class UserSignUp extends Component {
             <div>
               <Form
                 cancel={this.cancel}
-                errors={this.errors}
+                errors={errors}
                 submit={this.submit}
                 submitButtonText="Sign Up"
                 elements={() => (
@@ -55,14 +58,6 @@ class UserSignUp extends Component {
                       value={password}
                       onChange={this.change}
                       placeholder="Password"
-                    />
-                    <input
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      type="password"
-                      value={password}
-                      onChange={this.change}
-                      placeholder="Confirm Password"
                     />
                   </React.Fragment>
                 )}
@@ -108,6 +103,7 @@ class UserSignUp extends Component {
           this.setState({ errors });
         } else {
           console.log(`${emailAddress} has been registered!`);
+          this.props.history.push("/authenticated");
         }
       })
       .catch((err) => {
@@ -120,5 +116,3 @@ class UserSignUp extends Component {
     this.props.history.push("/");
   };
 }
-
-export default UserSignUp;
