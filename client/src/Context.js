@@ -19,12 +19,36 @@ export class Provider extends Component {
     const value = {
       authenticatedUser,
       data: this.data,
+      actions: {
+        signIn: this.signIn,
+        signOut: this.signOut,
+      },
     };
 
     return (
       <Context.Provider value={value}>{this.props.children}</Context.Provider>
     );
   }
+
+  signIn = async (emailAddress, password) => {
+    const user = await this.data.getUser(emailAddress, password);
+    if (user !== null) {
+      user.password = password;
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+    }
+  };
+
+  signOut = () => {
+    this.setState(() => {
+      return {
+        authenticatedUser: null,
+      };
+    });
+  };
 }
 
 export const Consumer = Context.Consumer;

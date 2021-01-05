@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class CourseDetail extends Component {
@@ -44,19 +45,19 @@ class CourseDetail extends Component {
               <div className="bounds">
                 <div className="grid-100">
                   <span>
-                    <a
+                    <Link
                       className="button"
-                      href={`/courses/${this.state.results.id}/update`}
+                      to={`/courses/${this.state.results.id}/update`}
                     >
                       Update Course
-                    </a>
-                    <a className="button" href="#">
+                    </Link>
+                    <Link className="button" to="#">
                       Delete Course
-                    </a>
+                    </Link>
                   </span>
-                  <a className="button button-secondary" href="/courses">
+                  <Link className="button button-secondary" to="/courses">
                     Return to List
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

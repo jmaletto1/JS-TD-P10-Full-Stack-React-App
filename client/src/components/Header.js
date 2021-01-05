@@ -12,13 +12,27 @@ class Header extends Component {
           <div className="header">
             <div className="bounds">
               <h1 className="header--logo">Courses</h1>
+              <Link to="/courses">View Courses</Link>
               <nav>
-                <Link className="signup" to="/sign-up">
-                  Sign Up
-                </Link>
-                <Link className="signin" to="/sign-in">
-                  Sign In
-                </Link>
+                {authUser ? (
+                  <React.Fragment>
+                    <span>
+                      Hello {authUser.firstName} {authUser.lastName}
+                    </span>
+                    <Link className="signup" to="/sign-out">
+                      Sign Out
+                    </Link>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <Link className="signup" to="/sign-up">
+                      Sign Up
+                    </Link>
+                    <Link className="signin" to="/sign-in">
+                      Sign In
+                    </Link>
+                  </React.Fragment>
+                )}
               </nav>
             </div>
           </div>

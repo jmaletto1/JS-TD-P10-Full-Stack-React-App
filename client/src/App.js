@@ -6,12 +6,12 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import axios from "axios";
 
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import UserSignIn from "./components/UserSignIn";
 import UserSignUp from "./components/UserSignUp";
+import UserSignOut from "./components/UserSignOut";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import Header from "./components/Header";
@@ -20,16 +20,22 @@ import Authenticated from "./components/Authenticated";
 import withContext from "./Context";
 
 const HeaderWithContext = withContext(Header);
+const AuthWithContext = withContext(Authenticated);
+const CoursesWithContext = withContext(Courses);
+const CourseDetailwithContext = withContext(CourseDetail);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UserSignInWithContext = withContext(UserSignIn);
 const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignOutWithContext = withContext(UserSignOut);
 
 function App() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios(`http://localhost:5000/api/courses`)
-      .then((res) => setData(res.data))
-      .catch((error) => console.log("BADNESS!"));
-  }, []);
+  // useEffect(() => {
+  //   axios(`http://localhost:5000/api/courses`)
+  //     .then((res) => setData(res.data))
+  //     .catch((error) => console.log("BADNESS!"));
+  // }, []);
 
   return (
     <Router>
@@ -40,23 +46,21 @@ function App() {
             {" "}
             <Redirect to="/courses" />
           </Route>
+          <Route exact path="/courses" component={CoursesWithContext} />
           <Route
             exact
-            path="/courses"
-            component={() => <Courses data={data} />}
+            path="/courses/create"
+            component={CreateCourseWithContext}
           />
-          <Route exact path="/courses/create" component={CreateCourse} />
-          <Route
-            path="/courses/:id/view"
-            render={(props) => <CourseDetail {...props} />}
-          />
+          <Route path="/courses/:id/view" component={CourseDetailwithContext} />
           <Route
             path="/courses/:id/update"
             render={(props) => <UpdateCourse {...props} />}
           />
-          <Route path="/sign-in" component={UserSignIn} />
+          <Route path="/sign-in" component={UserSignInWithContext} />
           <Route path="/sign-up" component={UserSignUpWithContext} />
-          {/* <Route path="/sign-out" component={} /> */}
+          <Route path="/sign-out" component={UserSignOutWithContext} />
+          <Route path="/authenticated" component={AuthWithContext} />
         </div>
       </Switch>
     </Router>

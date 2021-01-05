@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CourseButton = (props) => {
   return (
     <div className="grid-33">
-      <a
+      <Link
         className="course--module course--link"
-        href={`/courses/${props.id}/view`}
+        to={`/courses/${props.id}/view`}
       >
         <h4 className="course--label">Course</h4>
         <h3 className="course--title">{props.name}</h3>
-      </a>
+      </Link>
     </div>
   );
 };
