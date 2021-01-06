@@ -73,8 +73,8 @@ export default class Data {
     }
   }
 
-  async updateCourse(course, emailAddress, password) {
-    const response = await this.api("/courses", "PUT", course, true, {
+  async updateCourse(course, id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "PUT", course, true, {
       emailAddress,
       password,
     });
@@ -89,8 +89,8 @@ export default class Data {
     }
   }
 
-  async deleteCourse(course, emailAddress, password) {
-    const response = await this.api("/courses", "DELETE", course, true, {
+  async deleteCourse(course, id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "DELETE", course, true, {
       emailAddress,
       password,
     });

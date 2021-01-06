@@ -69,7 +69,7 @@ class CourseDetail extends Component {
                         >
                           Update Course
                         </Link>
-                        <Link className="button" to="#">
+                        <Link className="button" onClick={this.delete}>
                           Delete Course
                         </Link>
                       </React.Fragment>
@@ -130,6 +130,41 @@ class CourseDetail extends Component {
       </div>
     );
   }
+
+  delete = () => {
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    const emailAddress = authUser.emailAddress;
+    const password = authUser.password;
+
+    const { title, description, estimatedTime, materialsNeeded } = this.state;
+
+    const course = {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+    };
+
+    const cId = this.props.match.params.id;
+
+    console.log(cId);
+
+    context.data
+      .deleteCourse(course, cId, emailAddress, password)
+      .then((errors) => {
+        if (errors.length) {
+          this.setState({ errors });
+        } else {
+          console.log("Course deleted");
+          this.props.history.push("/courses");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.history.push("/courses");
+      });
+  };
 }
 
 export default CourseDetail;
