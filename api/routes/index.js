@@ -111,6 +111,7 @@ router.get(
             firstName: course.courseOwner.firstName,
             lastName: course.courseOwner.lastName,
             email: course.courseOwner.emailAddress,
+            ownerId: course.courseOwner.id,
           },
         });
       } else {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CourseButton from "./CourseButton";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default class Courses extends Component {
@@ -30,9 +31,9 @@ export default class Courses extends Component {
       <div className="bounds">
         {courses}
         <div className="grid-33">
-          <a
+          <Link
             className="course--module course--add--module"
-            href="/courses/create"
+            to="/courses/create"
           >
             <h3 className="course--add--title">
               <svg
@@ -47,7 +48,7 @@ export default class Courses extends Component {
               </svg>
               New Course
             </h3>
-          </a>
+          </Link>
         </div>
       </div>
     );

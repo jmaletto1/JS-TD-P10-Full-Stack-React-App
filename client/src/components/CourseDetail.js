@@ -13,6 +13,7 @@ class CourseDetail extends Component {
       materials: [],
       ownerFirstName: "",
       ownerLastName: "",
+      ownerId: "",
     };
   }
 
@@ -30,12 +31,27 @@ class CourseDetail extends Component {
           materials: res.data.materialsNeeded.split("* "),
           ownerFirstName: res.data.courseOwner.firstName,
           ownerLastName: res.data.courseOwner.lastName,
+          ownerId: res.data.courseOwner.ownerId,
         })
       )
       .catch("There's been an error!");
   }
 
   render() {
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    let display = "";
+
+    if (authUser) {
+      if (authUser.id === this.state.ownerId) {
+        this.owner = true;
+      } else {
+        this.owner = false;
+      }
+    } else {
+      this.owner = false;
+    }
+
     return (
       <div id="root">
         <div>
@@ -45,16 +61,30 @@ class CourseDetail extends Component {
               <div className="bounds">
                 <div className="grid-100">
                   <span>
-                    <Link
-                      className="button"
-                      to={`/courses/${this.state.results.id}/update`}
-                    >
-                      Update Course
-                    </Link>
-                    <Link className="button" to="#">
-                      Delete Course
-                    </Link>
+                    {this.owner ? (
+                      <React.Fragment>
+                        <Link
+                          className="button"
+                          to={`/courses/${this.state.results.id}/update`}
+                        >
+                          Update Course
+                        </Link>
+                        <Link className="button" to="#">
+                          Delete Course
+                        </Link>
+                      </React.Fragment>
+                    ) : null}
                   </span>
+                  {!this.owner && authUser ? (
+                    <Link className="button" to="/courses/create">
+                      Create a Course
+                    </Link>
+                  ) : null}
+                  {authUser ? null : (
+                    <Link className="button" to="/sign-up">
+                      Sign Up
+                    </Link>
+                  )}
                   <Link className="button button-secondary" to="/courses">
                     Return to List
                   </Link>

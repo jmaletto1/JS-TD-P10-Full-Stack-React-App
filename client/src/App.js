@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./styles/global.css";
 import {
   BrowserRouter as Router,
@@ -18,12 +18,14 @@ import Header from "./components/Header";
 import Authenticated from "./components/Authenticated";
 
 import withContext from "./Context";
+import PrivateRoute from "./PrivateRoute";
 
 const HeaderWithContext = withContext(Header);
 const AuthWithContext = withContext(Authenticated);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailwithContext = withContext(CourseDetail);
 const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignOutWithContext = withContext(UserSignOut);
@@ -47,20 +49,24 @@ function App() {
             <Redirect to="/courses" />
           </Route>
           <Route exact path="/courses" component={CoursesWithContext} />
-          <Route
+          <PrivateRoute
             exact
             path="/courses/create"
             component={CreateCourseWithContext}
           />
-          <Route path="/courses/:id/view" component={CourseDetailwithContext} />
           <Route
+            exact
+            path="/courses/:id/"
+            component={CourseDetailwithContext}
+          />
+          <PrivateRoute
             path="/courses/:id/update"
-            render={(props) => <UpdateCourse {...props} />}
+            component={UpdateCourseWithContext}
           />
           <Route path="/sign-in" component={UserSignInWithContext} />
           <Route path="/sign-up" component={UserSignUpWithContext} />
           <Route path="/sign-out" component={UserSignOutWithContext} />
-          <Route path="/authenticated" component={AuthWithContext} />
+          <PrivateRoute path="/authenticated" component={AuthWithContext} />
         </div>
       </Switch>
     </Router>
