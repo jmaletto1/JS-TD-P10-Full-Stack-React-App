@@ -13,16 +13,16 @@ class CreateCourse extends Component {
 
   render() {
     const {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
+      // title,
+      // description,
+      // estimatedTime,
+      // materialsNeeded,
       userId,
       errors,
     } = this.state;
 
-    const { context } = this.props;
-    const authUser = context.authenticatedUser;
+    // const { context } = this.props;
+    // const authUser = context.authenticatedUser;
 
     return (
       <div id="root">

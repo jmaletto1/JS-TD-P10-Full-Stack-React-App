@@ -41,9 +41,9 @@ function App() {
 
   return (
     <Router>
-      <HeaderWithContext />
-      <Switch>
-        <div className="App">
+      <div className="App">
+        <HeaderWithContext />
+        <Switch>
           <Route exact path="/">
             {" "}
             <Redirect to="/courses" />
@@ -67,8 +67,8 @@ function App() {
           <Route path="/sign-up" component={UserSignUpWithContext} />
           <Route path="/sign-out" component={UserSignOutWithContext} />
           <PrivateRoute path="/authenticated" component={AuthWithContext} />
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   );
 }
