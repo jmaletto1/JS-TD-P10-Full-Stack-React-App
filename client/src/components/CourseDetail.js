@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 class CourseDetail extends Component {
   constructor() {
@@ -40,7 +41,6 @@ class CourseDetail extends Component {
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    let display = "";
 
     if (authUser) {
       if (authUser.id === this.state.ownerId) {

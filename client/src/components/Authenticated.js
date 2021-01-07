@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ context }) => {
+const Authenticated = ({ context }) => {
   const authUser = context.authenticatedUser;
 
   return (
@@ -16,3 +16,5 @@ export default ({ context }) => {
     </div>
   );
 };
+
+export default Authenticated;

@@ -64,10 +64,13 @@ class UserSignIn extends Component {
 
   submit = () => {
     const { context } = this.props;
+
     const { from } = this.props.location.state || {
       from: { pathname: "/authenticated" },
     };
+
     const { emailAddress, password } = this.state;
+
     context.actions
       .signIn(emailAddress, password)
       .then((user) => {

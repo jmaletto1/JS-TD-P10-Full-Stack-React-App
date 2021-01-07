@@ -6,14 +6,14 @@ class UpdateCourse extends Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
-      results: [],
-      desc: [],
-      materials: [],
+      // id: 0,
+      // results: [],
+      // desc: [],
+      // materials: [],
       ownerFirstName: "",
       ownerLastName: "",
       ownerId: "",
-      isOwner: false,
+      // isOwner: false,
       title: "",
       description: "",
       estimatedTime: "",
@@ -50,13 +50,12 @@ class UpdateCourse extends Component {
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    console.log(this.state.ownerId);
     const {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
-      userId,
+      // title,
+      // description,
+      // estimatedTime,
+      // materialsNeeded,
+      // userId,
       errors,
     } = this.state;
 
@@ -187,17 +186,21 @@ class UpdateCourse extends Component {
       .then((errors) => {
         if (errors.length) {
           this.setState({ errors });
+          console.log(this.state.errors);
         } else {
           console.log(`${title} has been successfully updated!!`);
           alert("Course successfully updated!");
           this.props.history.push("/courses");
         }
       })
-      .then(console.log("Hmm" + course.title))
       .catch((err) => {
         console.log(err);
         this.props.history.push("/courses");
       });
+  };
+
+  cancel = () => {
+    this.props.history.push("/");
   };
 }
 

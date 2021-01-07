@@ -17,7 +17,7 @@ class CreateCourse extends Component {
       // description,
       // estimatedTime,
       // materialsNeeded,
-      userId,
+      // userId,
       errors,
     } = this.state;
 
@@ -84,7 +84,7 @@ class CreateCourse extends Component {
                             id="materialsNeeded"
                             name="materialsNeeded"
                             className
-                            placeholder="List materials..."
+                            placeholder="List materials here..."
                             onChange={this.change}
                           />
                         </div>
