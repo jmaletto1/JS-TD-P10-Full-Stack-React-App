@@ -15,6 +15,7 @@ class CourseDetail extends Component {
       ownerFirstName: "",
       ownerLastName: "",
       ownerId: "",
+      isCourse: false,
     };
   }
 
@@ -28,11 +29,14 @@ class CourseDetail extends Component {
       .then((res) =>
         this.setState({
           results: res.data,
-          desc: res.data.description.split("\n"),
-          materials: res.data.materialsNeeded.split("* "),
+          desc: res.data.description,
+          // desc: res.data.description.split("\n"),
+          materials: res.data.materialsNeeded,
+          // materials: res.data.materialsNeeded.split("* "),
           ownerFirstName: res.data.courseOwner.firstName,
           ownerLastName: res.data.courseOwner.lastName,
           ownerId: res.data.courseOwner.ownerId,
+          isCourse: true,
         })
       )
       .catch("There's been an error!");
@@ -41,6 +45,10 @@ class CourseDetail extends Component {
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
+    console.log(this.state.isCourse);
+
+    const descriptionMarkdown = `${this.state.desc}`;
+    const materialsMarkdown = `${this.state.materials}`;
 
     if (authUser) {
       if (authUser.id === this.state.ownerId) {
@@ -69,7 +77,7 @@ class CourseDetail extends Component {
                         >
                           Update Course
                         </Link>
-                        <Link className="button" onClick={this.delete}>
+                        <Link className="button" to={"#"} onClick={this.delete}>
                           Delete Course
                         </Link>
                       </React.Fragment>
@@ -101,9 +109,7 @@ class CourseDetail extends Component {
                   </p>
                 </div>
                 <div className="course--description">
-                  {this.state.desc.map((para) => (
-                    <p>{para}</p>
-                  ))}
+                  <ReactMarkdown source={descriptionMarkdown} />
                 </div>
               </div>
               <div className="grid-25 grid-right">
@@ -116,9 +122,7 @@ class CourseDetail extends Component {
                     <li className="course--stats--list--item">
                       <h4>Materials Needed</h4>
                       <ul>
-                        {this.state.materials.map((item) => (
-                          <li>{item}</li>
-                        ))}
+                        <ReactMarkdown source={materialsMarkdown} />
                       </ul>
                     </li>
                   </ul>

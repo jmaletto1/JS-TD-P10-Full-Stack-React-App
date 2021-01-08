@@ -16,6 +16,7 @@ import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import Header from "./components/Header";
 import Authenticated from "./components/Authenticated";
+import NotFound from "./components/NotFound";
 
 import withContext from "./Context";
 import PrivateRoute from "./PrivateRoute";
@@ -67,7 +68,9 @@ function App() {
           <Route path="/sign-up" component={UserSignUpWithContext} />
           <Route path="/sign-out" component={UserSignOutWithContext} />
           <PrivateRoute path="/authenticated" component={AuthWithContext} />
+          <Route Redirect="/not-found" component={NotFound} />
         </Switch>
+        {/* </HeaderWithContext> */}
       </div>
     </Router>
   );

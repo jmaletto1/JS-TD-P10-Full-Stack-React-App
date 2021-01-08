@@ -65,9 +65,10 @@ class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
 
-    const { from } = this.props.location.state || {
-      from: { pathname: "/authenticated" },
-    };
+    // const { from } = this.props.location.state;
+    // || {
+    // from: { pathname: "/authenticated" },
+    // }
 
     const { emailAddress, password } = this.state;
 
@@ -79,11 +80,13 @@ class UserSignIn extends Component {
             return { errors: ["Sign in was unsuccessful"] };
           });
         } else {
-          this.props.history.push(from);
+          // this.props.history.push(from);
+          this.props.history.goBack();
         }
       })
       .catch((err) => {
         console.log(err);
+        alert("Oh");
         this.props.history.push("/");
       });
   };
