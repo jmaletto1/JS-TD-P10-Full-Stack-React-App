@@ -43,13 +43,15 @@ class UpdateCourse extends Component {
           authUser.id !== this.state.ownerId &&
           this.state.description.length
         ) {
-          console.log("Forbidden!!");
+          // this.componentWillUnmount();
           this.props.history.push("/forbidden");
         }
       })
-      .catch("There's been an error!")
-      .finally(() => {
-        if (this.state.failure) {
+      .catch((error) => {
+        console.log(error.response);
+        if (!error.response || error.response.status === 500) {
+          this.props.history.push("/error");
+        } else if (error.response.status === 404) {
           this.props.history.push("/notfound");
         }
       });
