@@ -80,13 +80,11 @@ class UserSignIn extends Component {
             return { errors: ["Sign in was unsuccessful"] };
           });
         } else {
-          // this.props.history.push(from);
           this.props.history.goBack();
         }
       })
       .catch((err) => {
         console.log(err);
-        alert("Oh");
         this.props.history.push("/");
       });
   };

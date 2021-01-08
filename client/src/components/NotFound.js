@@ -10,7 +10,7 @@ const NotFound = () => (
       <br />
       <h2>
         Please visit the <a href="/courses">Courses</a> page to view our current
-        list of programs
+        list of programs.
       </h2>
     </div>
   </div>

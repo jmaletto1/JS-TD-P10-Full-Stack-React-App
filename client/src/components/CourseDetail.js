@@ -39,14 +39,17 @@ class CourseDetail extends Component {
         })
       )
       .catch((error) => {
-        this.setState({ failure: true });
+        if (!error.response || error.response.status === 500) {
+          this.props.history.push("/error");
+        } else if (error.response.status === 404) {
+          this.setState({ failure: true });
+        }
       })
       .finally(() => {
         if (this.state.failure) {
           this.props.history.push("/notfound");
         }
       });
-    // .catch("There's been an error!");
   }
 
   render() {

@@ -18,6 +18,7 @@ import Header from "./components/Header";
 import Authenticated from "./components/Authenticated";
 import Forbidden from "./components/Forbidden";
 import NotFound from "./components/NotFound";
+import UnhandledError from "./components/UnhandledError";
 
 import withContext from "./Context";
 import PrivateRoute from "./PrivateRoute";
@@ -33,14 +34,6 @@ const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 function App() {
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   axios(`http://localhost:5000/api/courses`)
-  //     .then((res) => setData(res.data))
-  //     .catch((error) => console.log("BADNESS!"));
-  // }, []);
-
   return (
     <Router>
       <div className="App">
@@ -70,6 +63,7 @@ function App() {
           <Route path="/sign-out" component={UserSignOutWithContext} />
           <PrivateRoute path="/authenticated" component={AuthWithContext} />
           <Route path="/forbidden" component={Forbidden} />
+          <Route path="/error" component={UnhandledError} />
           <Route Redirect="/not-found" component={NotFound} />
         </Switch>
         {/* </HeaderWithContext> */}
