@@ -77,7 +77,7 @@ export default class Data {
       emailAddress,
       password,
     });
-    if (response.status === 201) {
+    if (response.status === 204) {
       return [];
     } else if (response.status === 400) {
       return response.json().then((data) => {
@@ -93,7 +93,7 @@ export default class Data {
       emailAddress,
       password,
     });
-    if (response.status === 201) {
+    if (response.status === 204) {
       return [];
     } else if (response.status === 400) {
       return response.json().then((data) => {

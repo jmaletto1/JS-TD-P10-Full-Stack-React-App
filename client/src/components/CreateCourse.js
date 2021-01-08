@@ -54,7 +54,6 @@ class CreateCourse extends Component {
                       <textarea
                         id="description"
                         name="description"
-                        className
                         placeholder="Course description..."
                         onChange={this.change}
                       />
@@ -83,7 +82,6 @@ class CreateCourse extends Component {
                           <textarea
                             id="materialsNeeded"
                             name="materialsNeeded"
-                            className
                             placeholder="List materials here..."
                             onChange={this.change}
                           />

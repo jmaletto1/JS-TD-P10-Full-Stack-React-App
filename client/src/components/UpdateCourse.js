@@ -99,7 +99,6 @@ class UpdateCourse extends Component {
                         <textarea
                           id="description"
                           name="description"
-                          className
                           defaultValue={this.state.description}
                           onChange={this.change}
                         />
@@ -128,7 +127,6 @@ class UpdateCourse extends Component {
                             <textarea
                               id="materialsNeeded"
                               name="materialsNeeded"
-                              className
                               defaultValue={this.state.materialsNeeded}
                               onChange={this.change}
                             />
