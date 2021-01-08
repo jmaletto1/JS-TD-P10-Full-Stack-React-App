@@ -15,7 +15,8 @@ class CourseDetail extends Component {
       ownerFirstName: "",
       ownerLastName: "",
       ownerId: "",
-      isCourse: false,
+      transaction: false,
+      failure: false,
     };
   }
 
@@ -30,22 +31,27 @@ class CourseDetail extends Component {
         this.setState({
           results: res.data,
           desc: res.data.description,
-          // desc: res.data.description.split("\n"),
           materials: res.data.materialsNeeded,
-          // materials: res.data.materialsNeeded.split("* "),
           ownerFirstName: res.data.courseOwner.firstName,
           ownerLastName: res.data.courseOwner.lastName,
           ownerId: res.data.courseOwner.ownerId,
-          isCourse: true,
+          transaction: true,
         })
       )
-      .catch("There's been an error!");
+      .catch((error) => {
+        this.setState({ failure: true });
+      })
+      .finally(() => {
+        if (this.state.failure) {
+          this.props.history.push("/notfound");
+        }
+      });
+    // .catch("There's been an error!");
   }
 
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    console.log(this.state.isCourse);
 
     const descriptionMarkdown = `${this.state.desc}`;
     const materialsMarkdown = `${this.state.materials}`;

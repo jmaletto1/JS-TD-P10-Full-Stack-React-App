@@ -6,20 +6,13 @@ class UpdateCourse extends Component {
   constructor() {
     super();
     this.state = {
-      // id: 0,
-      // results: [],
-      // desc: [],
-      // materials: [],
-      // ownerFirstName: "",
-      // ownerLastName: "",
-      // ownerId: "",
-      // isOwner: false,
       title: "",
       description: "",
       estimatedTime: "",
       materialsNeeded: "",
       userId: "",
       errors: [],
+      failure: true,
     };
   }
 
@@ -37,27 +30,35 @@ class UpdateCourse extends Component {
           description: res.data.description,
           estimatedTime: res.data.estimatedTime,
           materialsNeeded: res.data.materialsNeeded,
-          // desc: res.data.description.split("\n"),
-          // materials: res.data.materialsNeeded.split("* "),
           ownerFirstName: res.data.courseOwner.firstName,
           ownerLastName: res.data.courseOwner.lastName,
           ownerId: res.data.courseOwner.ownerId,
+          failure: false,
         })
       )
-      .catch("There's been an error!");
+      .then(() => {
+        const { context } = this.props;
+        const authUser = context.authenticatedUser;
+        if (
+          authUser.id !== this.state.ownerId &&
+          this.state.description.length
+        ) {
+          console.log("Forbidden!!");
+          this.props.history.push("/forbidden");
+        }
+      })
+      .catch("There's been an error!")
+      .finally(() => {
+        if (this.state.failure) {
+          this.props.history.push("/notfound");
+        }
+      });
   }
 
   render() {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    const {
-      // title,
-      // description,
-      // estimatedTime,
-      // materialsNeeded,
-      // userId,
-      errors,
-    } = this.state;
+    const { errors } = this.state;
 
     if (this.state.ownerId === authUser.id) {
       return (
@@ -149,6 +150,7 @@ class UpdateCourse extends Component {
             </h1>
           </div>
         </div>
+        // <Redirect to="/forbidden" />
       );
     }
   }
