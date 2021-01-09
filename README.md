@@ -1,4 +1,4 @@
-# Full Stack Courses Directory App, Powered by React & a REST API.
+# Full Stack Course Directory App, Powered by React & a REST API.
 
 In this project, I have used the popular Javascript library React to create a client for a school database REST API (that I created in a previous project). This project allows users to view a list of all of the courses held in the API, and view all of the details for each course. Users may also register an account, or sign in with an existing account, to create, update and delete existing courses. I have also implemented a number of validation methods to ensure that users cannot update or delete projects that do not belong to them.
 
