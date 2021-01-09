@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 
+/*
+This component renders the details for a specific course returned from the 
+REST API.
+
+The class CoursDetail holds a number of variables on the state, which are set by
+the asynchronous fetchResults function. The transaction and failure parameters
+are both also set to false by default (explained below).
+*/
+
 class CourseDetail extends Component {
   constructor() {
     super();
@@ -20,10 +29,25 @@ class CourseDetail extends Component {
     };
   }
 
+  /* 
+  componentDidMount is called to set the id on the state object to match the id
+  provided in the url. From there, the fetchResults method is called using said id.
+  */
   componentDidMount() {
     this.setState({ id: this.props.match.params.id });
     this.fetchResults(this.props.match.params.id);
   }
+
+  /*
+  The fetchResults method is an asynchronous function that uses the axios plugin to
+  retrieve a json object from the REST API. This then sets the state of the parameters
+  listed below (course description, owner etc).
+
+  In the event of an error response not being provided, or the server providing a 500 error,
+  the catch method will push the user to the "/error" route. Alternatively, if a 404 status
+  code is provided, the user will then be sent to the "/notfound" route via the finally()
+  method.
+  */
 
   fetchResults(id) {
     axios(`http://localhost:5000/api/courses/${id}`)
@@ -51,6 +75,18 @@ class CourseDetail extends Component {
         }
       });
   }
+
+  /*
+  The render method makes use of the app's context to retrieve the user's credentials.
+  Within the return statement, the user will then be shown the links to update or
+  delete a course if they are the owner of said course. If not, a button to create a course
+  will be displayed instead. Finally, if the user is not signed in, the registration link
+  will be displayed instead.
+
+  The render method also makes use of the ReactMarkdown package to display the description
+  and materials results in a formatted manner. This splits the description text into paragraphs,
+  and displays the materials list as bullet points.
+  */
 
   render() {
     const { context } = this.props;
@@ -143,6 +179,17 @@ class CourseDetail extends Component {
       </div>
     );
   }
+
+  /*
+  The courseDetail class also includes the method to delete the relevant course.
+  We do not need to provide verification within the method, as the button is only
+  displayed if the owner of the course is logged in.
+
+  This method captures the course that needs to be deleted (currently stored on the state),
+  and calls the .deleteCourse() method from context.data. If errors are provided, they are
+  displayed on the page. If successful, the function redirects the user to the /courses
+  route.
+  */
 
   delete = () => {
     const { context } = this.props;

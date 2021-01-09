@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Form from "./Form";
 
+/*
+This stateful component allows a user to sign in to their account
+via the REST API. The user's emailAddress, password and any errors
+are stored on the state.
+*/
+
 class UserSignIn extends Component {
   state = {
     emailAddress: "",
@@ -9,8 +15,17 @@ class UserSignIn extends Component {
     errors: [],
   };
 
+  // The user's credentials and any errors are destructured here from the state.
   render() {
     const { emailAddress, password, errors } = this.state;
+
+    /*
+      Within the form component (beneath), the key parameters are initially set
+      as below. This includes the cancel and submit functions, the errors,
+      the button display text and the form elements themselves. When a user
+      enters a value into any of the fields, the onChange (or this.onChange)
+      function is activated.
+    */
 
     return (
       <div className="bounds">
@@ -62,14 +77,13 @@ class UserSignIn extends Component {
     });
   };
 
+  /*
+    The submit function calls on the Provider context to gather the necessary
+    information on the current user, and then stores this into variables. 
+  */
+
   submit = () => {
     const { context } = this.props;
-
-    // const { from } = this.props.location.state;
-    // || {
-    // from: { pathname: "/authenticated" },
-    // }
-
     const { emailAddress, password } = this.state;
 
     context.actions

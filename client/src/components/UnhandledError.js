@@ -1,5 +1,11 @@
 import React from "react";
 
+/*
+  UnhandledError.js is a stateless component that returns a message to the DOM,
+  notifying the user that there has been a server error. The user is invited to
+  try again, or return to the site later on.
+*/
+
 const UnhandledError = () => (
   <div id="root">
     <div className="bounds">

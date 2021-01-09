@@ -1,5 +1,8 @@
 import React from "react";
 
+/*
+This stateless arrow function returns the user's details once successfully logged in.
+*/
 const Authenticated = ({ context }) => {
   const authUser = context.authenticatedUser;
 

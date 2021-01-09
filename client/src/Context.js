@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import Cookies from "js-cookie";
 import Data from "./Data";
 
+/* 
+Context.js provides the context for the bulk of this application.
+This involves initially setting the cookie object on the state, meaning
+the user can remain signed in if the window/tab is refreshed or exited.
+A new data object is also instantiated within the Provider constructor.
+
+*/
+
 const Context = React.createContext();
 
 export class Provider extends Component {
@@ -31,6 +39,11 @@ export class Provider extends Component {
     );
   }
 
+  /* 
+  The Provider class also contains two key methods that allow the user to sign in
+  and out. These alter the state by either returning an authenticatedUser, or returning
+  null.
+  */
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
@@ -57,6 +70,10 @@ export class Provider extends Component {
 
 export const Consumer = Context.Consumer;
 
+/* 
+The withContext function allows other components to make use of the context
+determined within Context.js.
+*/
 export default function withContext(Component) {
   return function ContextComponent(props) {
     return (

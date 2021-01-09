@@ -1,3 +1,23 @@
+/*
+Data.js is a helper class that allows Context.js and other components
+to complete the course application.
+
+The api method builds the connection to the rest API, and determines other
+options such as the method (GET/POST etc) as well as user credentials.
+
+It also contains the core functions that allow the client to:
+* Log in
+* Sign Up
+* Submit a Course
+* Update a Course
+* Delete a Course
+
+All of these functions create a connection to the REST API using the api function.
+These methods include the user's credentials (if required) and direct the application
+on how to act depending on which response code is received from the server.
+
+*/
+
 export default class Data {
   api(
     path,

@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+/*
+  Header.js is a stateless component that displays the main navigation module
+  at the top of each page. The render method calls on the app's {context}, which
+  then defines an authenticated user, if there is one.
+
+  From there, the return method makes use of the ternary operator to either display
+  a welcome message to the user, and the link to sign out if the user is signed in.
+
+  If they are not signed in, the links to both Sign Up and Sign in are both returned.
+*/
+
 class Header extends Component {
   render() {
     const { context } = this.props;

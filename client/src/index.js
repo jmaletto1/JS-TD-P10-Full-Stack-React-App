@@ -5,6 +5,9 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "./Context";
 import App from "./App";
 
+/* Index.js wraps App.js inside <Provider> containers, meaning that all children
+of App.js will have access to the Provider Context.
+*/
 ReactDOM.render(
   <Provider>
     <App />

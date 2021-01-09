@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Form from "./Form";
 
+/*
+This component allows a user to create an account with our course application.
+The application makes use of the Form component to display errors or validation 
+complaints returned from the REST API, as well as the submit function
+to actually submit the data.
+*/
+
 export default class UserSignUp extends Component {
   state = {
     firstName: "",
@@ -83,6 +90,16 @@ export default class UserSignUp extends Component {
       };
     });
   };
+
+  /*
+      Once the variables have been set, the submit method calls on context.data's
+      createUser function to do just that - register a new user to the REST API.
+      
+      If any errors are returned, such as the email address being empty, for example, 
+      these are rendered at the top of the page (beneath the navigation bar). If no 
+      errors are returned, an alert message is provided, notifying the user of the course
+      being successfully created. The user is then re-directed to the /courses route.
+    */
 
   submit = () => {
     const { context } = this.props;

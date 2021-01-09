@@ -2,6 +2,19 @@ import React, { Component } from "react";
 import Form from "./Form";
 import axios from "axios";
 
+/*
+The Update Course Component has two primary functions - to first of all
+retrieve the course component that matches the :id parameter in the url,
+and display it's values within a form (rendered from the Form component).
+Secondly, the component must allow the user to update and submit the amended
+course details to the REST API.
+*/
+
+/*
+ The relevant course details are stored on the class's state, within the 
+constructor method.
+*/
+
 class UpdateCourse extends Component {
   constructor() {
     super();
@@ -16,10 +29,24 @@ class UpdateCourse extends Component {
     };
   }
 
+  /* 
+  componentDidMount is called to set the id on the state object to match the id
+  provided in the url. From there, the fetchResults method is called using said id.
+  */
   componentDidMount() {
     this.setState({ id: this.props.match.params.id });
     this.fetchResults(this.props.match.params.id);
   }
+
+  /*
+  The fetchResults method is an asynchronous function that uses the axios plugin to
+  retrieve a json object from the REST API. This then sets the state of the parameters
+  listed below (course description, owner etc).
+
+  In the event of an error response not being provided, or the server providing a 500 error,
+  the catch method will push the user to the "/error" route. Alternatively, if a 404 status
+  code is provided, the user will then be sent to the "/notfound" route.
+  */
 
   fetchResults(id) {
     axios(`http://localhost:5000/api/courses/${id}`)
@@ -43,7 +70,6 @@ class UpdateCourse extends Component {
           authUser.id !== this.state.ownerId &&
           this.state.description.length
         ) {
-          // this.componentWillUnmount();
           this.props.history.push("/forbidden");
         }
       })
@@ -56,6 +82,12 @@ class UpdateCourse extends Component {
         }
       });
   }
+
+  /*
+  The render method first makes use of the Provider context to gather
+  the user's information. If the course owner's ID matches that of the user,
+  the Form component will display, allowing the user to submit the course.
+  */
 
   render() {
     const { context } = this.props;
@@ -150,7 +182,6 @@ class UpdateCourse extends Component {
             </h1>
           </div>
         </div>
-        // <Redirect to="/forbidden" />
       );
     }
   }
@@ -165,6 +196,17 @@ class UpdateCourse extends Component {
       };
     });
   };
+
+  /*
+      Once the variables have been set, the submit method calls on context.data's
+      updateCourse function to submit the updated course's details to the REST API.
+      
+      If any errors are returned, such as the course title being empty, these are
+      rendered at the top of the page (beneath the navigation bar). If no errors are 
+      returned, an alert message is provided, notifying the user of the course
+      being successfully created. The user is then re-directed to the /courses
+      route.
+    */
 
   submit = () => {
     const { context } = this.props;
@@ -190,7 +232,6 @@ class UpdateCourse extends Component {
           this.setState({ errors });
           console.log(this.state.errors);
         } else {
-          console.log(`${title} has been successfully updated!!`);
           alert("Course successfully updated!");
           this.props.history.push("/courses");
         }
@@ -202,7 +243,8 @@ class UpdateCourse extends Component {
   };
 
   cancel = () => {
-    this.props.history.push("/");
+    this.props.history.go(-1);
+    // this.props.history.push("/");
   };
 }
 

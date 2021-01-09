@@ -1,5 +1,11 @@
 import React from "react";
 
+/* 
+The NotFound component is a stateless arrow function that returns
+a message to the user, notifying them that the course or page they
+have requested does not exist (essentially a 404 error).
+*/
+
 const NotFound = () => (
   <div id="root">
     <div className="bounds">

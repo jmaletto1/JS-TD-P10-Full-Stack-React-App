@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// This stateless component renders a button to the DOM for each course returned by the server.
+// This component is rendered by the CourseDetail component.
+
 const CourseButton = (props) => {
   return (
     <div className="grid-33">
